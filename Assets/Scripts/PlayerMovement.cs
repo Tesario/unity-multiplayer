@@ -3,8 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float horizontalSpeed = 2.0f;
-    [SerializeField] private float verticalSpeed = 2.0f;
+    [SerializeField] private float speed = 4f;
     [SerializeField] private float rotationSpeed = 720f;
     [SerializeField] private Animator animator;
 
@@ -27,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private void SetPlayerVelocity()
     {
         _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
-        _rigidbody.velocity = _smoothedMovementInput * verticalSpeed;
+        _rigidbody.velocity = _smoothedMovementInput * speed;
         if (_rigidbody.velocity == Vector2.zero)
         {
             animator.SetBool("IsWalking", false);
@@ -40,10 +39,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateInDirectionOfInput()
     {
-        Quaternion targetRotation = Quaternion.LookRotation(transform.forward, _smoothedMovementInput);
-        Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        if (_movementInput != Vector2.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(transform.forward, _smoothedMovementInput);
+            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        _rigidbody.MoveRotation(rotation);
+            _rigidbody.MoveRotation(rotation);
+        }
     }
 
     private void OnMove(InputValue inputValue)
