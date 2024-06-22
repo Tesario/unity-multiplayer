@@ -1,7 +1,8 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPun
 {
     [SerializeField] private float speed = 4f;
     [SerializeField] private float rotationSpeed = 720f;
@@ -19,13 +20,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        SetPlayerVelocity();
-        RotateInDirectionOfInput();
+        if (photonView.IsMine)
+        {
+            SetPlayerVelocity();
+            RotateInDirectionOfInput();
+        }
     }
 
     private void SetPlayerVelocity()
     {
-        _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
+
+        _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f); ;
         _rigidbody.velocity = _smoothedMovementInput * speed;
         if (_rigidbody.velocity == Vector2.zero)
         {
@@ -48,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnMove(InputValue inputValue)
+    public void OnMovement(InputValue inputValue)
     {
         _movementInput = inputValue.Get<Vector2>();
     }
