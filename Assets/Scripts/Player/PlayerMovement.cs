@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviourPun
     [SerializeField] private float speed = 4f;
     [SerializeField] private float rotationSpeed = 720f;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform rotatorControler;
 
     private Rigidbody2D _rigidbody;
     private Vector2 _movementInput;
@@ -31,7 +32,8 @@ public class PlayerMovement : MonoBehaviourPun
     {
 
         _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f); ;
-        _rigidbody.velocity = _smoothedMovementInput * speed;
+        _rigidbody.MovePosition(_rigidbody.position + (_smoothedMovementInput * speed) * Time.fixedDeltaTime);
+
         if (_rigidbody.velocity == Vector2.zero)
         {
             animator.SetBool("IsWalking", false);
