@@ -1,6 +1,4 @@
 using Photon.Pun;
-using Photon.Realtime;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
@@ -28,10 +26,5 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     {
         loading.SetActive(false);
         lobby.SetActive(true);
-    }
-
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        //Debug.Log(roomList);
     }
 }

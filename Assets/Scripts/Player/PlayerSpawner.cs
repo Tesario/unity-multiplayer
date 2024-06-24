@@ -2,22 +2,22 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerSpawner : MonoBehaviour
+public class PlayerSpawner : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameInput gameInput;
+    [SerializeField] private GameObject playerPrefab;
 
     private float minX = -4f;
     private float maxX = 4f;
     private float minY = -4f;
     private float maxY = 4f;
 
-    void Start()
+    private void Start()
     {
         Vector2 position = new Vector2(transform.position.x + Random.Range(minX, maxX), transform.position.y + Random.Range(minY, maxY));
+
         if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.Instantiate(player.name, position, Quaternion.identity);
+            var player = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
         }
         else
         {

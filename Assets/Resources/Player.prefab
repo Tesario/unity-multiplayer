@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 1355023169009219785}
   - component: {fileID: 2827404931583234467}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Name Tag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tesario
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8de22b724591cd4459c948386d6c9b8c, type: 2}
   m_sharedMaterial: {fileID: -2164320049288442239, guid: 8de22b724591cd4459c948386d6c9b8c, type: 2}
@@ -377,7 +377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc2bb9bbf5c7024daf4fa7f8f04a4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 9010251441176374379}
 --- !u!1 &6352241297885151704
 GameObject:
   m_ObjectHideFlags: 0
