@@ -31,10 +31,10 @@ public class PlayerMovement : MonoBehaviourPun
     private void SetPlayerVelocity()
     {
 
-        _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f); ;
+        _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
         _rigidbody.MovePosition(_rigidbody.position + (_smoothedMovementInput * speed) * Time.fixedDeltaTime);
 
-        if (_rigidbody.velocity == Vector2.zero)
+        if (_movementInput == Vector2.zero)
         {
             animator.SetBool("IsWalking", false);
         }
@@ -58,5 +58,10 @@ public class PlayerMovement : MonoBehaviourPun
     public void OnMovement(InputValue inputValue)
     {
         _movementInput = inputValue.Get<Vector2>();
+    }
+
+    public Vector2 IsMoving()
+    {
+        return _movementInput;
     }
 }

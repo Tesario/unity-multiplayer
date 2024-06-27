@@ -13,7 +13,7 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        Vector2 position = new Vector2(transform.position.x + Random.Range(minX, maxX), transform.position.y + Random.Range(minY, maxY));
+        Vector3 position = new Vector3(transform.position.x + Random.Range(minX, maxX), transform.position.y + Random.Range(minY, maxY), playerPrefab.transform.localPosition.z);
 
         if (PhotonNetwork.IsConnected)
         {
