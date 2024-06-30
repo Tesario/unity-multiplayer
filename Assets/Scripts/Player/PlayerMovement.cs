@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviourPun
 {
     [SerializeField] private float speed = 4f;
     [SerializeField] private float rotationSpeed = 720f;
-    [SerializeField] private Animator animator;
     [SerializeField] private Transform rotatorControler;
 
+    private PlayerAnimationHandler _animationHandler;
     private Rigidbody2D _rigidbody;
     private Vector2 _movementInput;
     private Vector2 _smoothedMovementInput;
@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviourPun
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _animationHandler = GetComponent<PlayerAnimationHandler>();
     }
 
     private void FixedUpdate()
@@ -30,18 +31,13 @@ public class PlayerMovement : MonoBehaviourPun
 
     private void SetPlayerVelocity()
     {
-
         _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
         _rigidbody.MovePosition(_rigidbody.position + (_smoothedMovementInput * speed) * Time.fixedDeltaTime);
 
         if (_movementInput == Vector2.zero)
-        {
-            animator.SetBool("IsWalking", false);
-        }
+            _animationHandler.Idle();
         else
-        {
-            animator.SetBool("IsWalking", true);
-        }
+            _animationHandler.Walk();
     }
 
     private void RotateInDirectionOfInput()
@@ -60,7 +56,7 @@ public class PlayerMovement : MonoBehaviourPun
         _movementInput = inputValue.Get<Vector2>();
     }
 
-    public Vector2 IsMoving()
+    public Vector2 GetPlayerMovementInput()
     {
         return _movementInput;
     }

@@ -17,7 +17,7 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsConnected)
         {
-            var player = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
+            PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
         }
         else
         {
