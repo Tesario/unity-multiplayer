@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   label: Pistol
+  walkingAnimation: {fileID: 7400000, guid: c766436d9679f8844a43981d6d763836, type: 2}
+  idleAnimation: {fileID: 7400000, guid: d700209e9df59b1479f00c5f7e31b1ff, type: 2}
+  attachAnimation: {fileID: 7400000, guid: 31f46bdc895ffaf46bf5fc9d53f4a91e, type: 2}
+  prefab: {fileID: 936901212212993016, guid: 9c0fbce6247c681479404a414ac6bed9, type: 3}

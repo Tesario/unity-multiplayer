@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Fists
   m_EditorClassIdentifier: 
   label: Fists
+  walkingAnimation: {fileID: 7400000, guid: 89bc12474e44da54b8c9a0f6b15b44af, type: 2}
+  idleAnimation: {fileID: 7400000, guid: d974734b901932445b9fabfa4b245e19, type: 2}
+  attachAnimation: {fileID: 7400000, guid: bff03a06b19c6924c84c502adcf7f1ed, type: 2}
+  prefab: {fileID: 4555209710035520843, guid: 89311bacdd50e87479293254f507ba96, type: 3}

@@ -7,4 +7,5 @@ public class ItemSO : ScriptableObject
     public AnimationClip walkingAnimation;
     public AnimationClip idleAnimation;
     public AnimationClip attachAnimation;
+    public GameObject prefab;
 }
