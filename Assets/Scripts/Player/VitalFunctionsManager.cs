@@ -1,11 +1,12 @@
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class VitalFunctionsManager : MonoBehaviourPunCallbacks, IDamageable
 {
-    [SerializeField] private Image bloodScreen;
+    [SerializeField] private ParticleSystem bloodParticle;
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private HUDManager hudManager;
+    [SerializeField] private GameObject body;
 
     private int _health;
 
@@ -22,22 +23,27 @@ public class VitalFunctionsManager : MonoBehaviourPunCallbacks, IDamageable
     [PunRPC]
     private void RPC_SyncHealth(int damage)
     {
-        if (!photonView.IsMine)
-            return;
-
         _health -= damage;
         RecalculateBloodScreen();
+
+        if (_health <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        body.SetActive(false);
+        var particle = Instantiate(bloodParticle, transform.position, transform.rotation);
+        particle.Play();
+        Destroy(particle, 2f);
+
+        hudManager.ShowRespawnScreen();
     }
 
     private void RecalculateBloodScreen()
     {
         var opacity = 1 - ((float)_health / maxHealth);
-
-        if (opacity > 0.2f)
-        {
-            var tempColor = bloodScreen.color;
-            tempColor.a = opacity;
-            bloodScreen.color = tempColor;
-        }
+        if (opacity > 0.4f)
+            hudManager.ShowBloodScreen(opacity);
     }
 }
