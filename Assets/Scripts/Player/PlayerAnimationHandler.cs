@@ -56,4 +56,9 @@ public class PlayerAnimationHandler : MonoBehaviour
     {
         animator.SetTrigger("Attack");
     }
+
+    public AnimatorStateInfo GetCurrentAnimationInfo()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0);
+    }
 }

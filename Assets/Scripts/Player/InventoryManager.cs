@@ -25,34 +25,49 @@ public class InventoryManager : MonoBehaviourPunCallbacks
     private void OnSlot1()
     {
         if (photonView.IsMine)
-            ChangeActiveSlot(fistsSO);
+            photonView.RPC("RPC_ChangeActiveItem", RpcTarget.AllBuffered, fistsSO.label);
     }
 
     private void OnSlot2()
     {
         if (photonView.IsMine)
-            ChangeActiveSlot(pistolSO);
+            photonView.RPC("RPC_ChangeActiveItem", RpcTarget.AllBuffered, pistolSO.label);
     }
 
     [PunRPC]
-    private void ChangeActiveSlot(ItemSO newItem)
+    private void RPC_ChangeActiveItem(string itemName)
     {
-        _activeItemSO = newItem;
+        // This switch is temporal because it should be replace of some loop which will search in whole inventory which item should be actually rendered
+        switch (itemName)
+        {
+            case "Pistol":
+                _activeItemSO = pistolSO;
+                break;
+            case "Fists":
+                _activeItemSO = fistsSO;
+                break;
+            default: return;
+        }
 
         _animationHandler.SwitchAnimationClip(_activeItemSO.idleAnimation, PlayerAnimationHandler.AnimationTypes.IDLE);
         _animationHandler.SwitchAnimationClip(_activeItemSO.walkingAnimation, PlayerAnimationHandler.AnimationTypes.WALKING);
         _animationHandler.SwitchAnimationClip(_activeItemSO.attachAnimation, PlayerAnimationHandler.AnimationTypes.ATTACK);
 
-        PhotonNetwork.Destroy(_activeItem);
-        _activeItem = PhotonNetwork.InstantiateRoomObject(_activeItemSO.prefab.name, Vector3.zero, Quaternion.identity);
+        Destroy(_activeItem);
+        _activeItem = Instantiate(_activeItemSO.prefab, Vector3.zero, Quaternion.identity);
 
         _activeItem.transform.parent = rightForearm.transform;
         _activeItem.transform.SetLocalPositionAndRotation(_activeItemSO.prefab.transform.position, _activeItemSO.prefab.transform.rotation);
         _activeItem.transform.localScale = _activeItemSO.prefab.transform.localScale;
     }
 
-    public ItemSO GetActiveItem()
+    public ItemSO GetActiveItemSO()
     {
         return _activeItemSO;
+    }
+
+    public GameObject GetActiveItem()
+    {
+        return _activeItem;
     }
 }

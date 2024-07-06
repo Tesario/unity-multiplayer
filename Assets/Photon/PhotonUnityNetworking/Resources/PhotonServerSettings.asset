@@ -42,6 +42,11 @@ MonoBehaviour:
   - OnSlot1
   - OnSlot2
   - ChangeActiveSlot
+  - RPC_ChangeActiveSlot
+  - RPC_RerenderActiveSlot
+  - RPC_ChangeActiveItem
+  - RPC_SyncPrimaryAction
+  - RPC_SyncHealth
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -43,6 +43,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
+        if (PhotonNetwork.NetworkClientState != ClientState.JoinedLobby)
+            return;
+
         ValidateCreateRoomInput();
         ValidateNicknameInput();
 
@@ -61,6 +64,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void JoinRoom(string roomName)
     {
+        if (PhotonNetwork.NetworkClientState != ClientState.JoinedLobby)
+            return;
+
         ValidateNicknameInput();
 
         if (!isNicknameInputValid)
